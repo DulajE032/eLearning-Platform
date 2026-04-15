@@ -1,0 +1,57 @@
+/* Empty file */
+/* Mobile (default) */
+.app-container {
+    width: 100%;
+}
+
+/* Tablets (768px and up) */
+@media (min-width: 768px) {
+    .app-container {
+        width: 80%;
+    }
+}
+
+/* Desktops (1024px and up) */
+@media (min-width: 1024px) {
+    .app-container {
+        width: 1200px;
+    }
+}
+
+/* Mobile (default) */
+.main-content {
+    width: 100%;
+}
+
+/* Tablets (768px and up) */
+@media (min-width: 768px) {
+    .main-content {
+        width: 80%;
+    }
+}
+
+/* Desktops (1024px and up) */
+@media (min-width: 1024px) {
+    .main-content {
+        width: 1200px;
+    }
+}
+
+/* Mobile (default) */
+.container {
+    width: 100%;
+}
+
+/* Tablets (768px and up) */
+@media (min-width: 768px) {
+    .container {
+        width: 80%;
+    }
+}
+
+/* Desktops (1024px and up) */
+@media (min-width: 1024px) {
+    .container {
+        width: 1200px;
+    }
+}
