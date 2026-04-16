@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import StudentDashboard from './pages/StudentDashboard';
 import AdminPanel from './pages/AdminPanel';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -17,9 +18,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/student" element={<StudentDashboard />} />
-            <Route path="/admin-secure" element={<AdminPanel />} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );

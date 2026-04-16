@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Clock, CheckCircle, AlertCircle } from 'lucide-react';
 
 const DUMMY_QUESTIONS = [
@@ -13,22 +14,40 @@ const StudentDashboard = () => {
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [score, setScore] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (timeLeft > 0 && !isSubmitted) {
-      const timerId = setInterval(() => setTimeLeft(t => t - 1), 1000);
-      return () => clearInterval(timerId);
-    } else if (timeLeft === 0 && !isSubmitted) {
-      handleSubmit();
+    if (localStorage.getItem('isStudentLoggedIn') !== 'true') {
+      navigate('/login');
     }
-  }, [timeLeft, isSubmitted]);
+  }, [navigate]);
 
   const handleSelect = (optionIndex) => {
     if (isSubmitted) return;
     setSelectedAnswers({ ...selectedAnswers, [currentQuestion]: optionIndex });
   };
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    const handleSubmit = () => {
+      let newScore = 0;
+      DUMMY_QUESTIONS.forEach((q, index) => {
+        if (selectedAnswers[index] === q.answer) {
+          newScore += 1;
+        }
+      });
+      setScore(newScore);
+      setIsSubmitted(true);
+    };
+
+    if (timeLeft > 0 && !isSubmitted) {
+      const timerId = setInterval(() => setTimeLeft(t => t - 1), 1000);
+      return () => clearInterval(timerId);
+    } else if (timeLeft === 0 && !isSubmitted) {
+      handleSubmit();
+    }
+  }, [timeLeft, isSubmitted, selectedAnswers]);
+
+  const manualSubmit = () => {
     let newScore = 0;
     DUMMY_QUESTIONS.forEach((q, index) => {
       if (selectedAnswers[index] === q.answer) {
@@ -111,7 +130,7 @@ const StudentDashboard = () => {
                   Previous
                 </button>
                 {currentQuestion === DUMMY_QUESTIONS.length - 1 ? (
-                  <button className="glass-btn" style={{ background: '#22c55e', borderColor: '#22c55e' }} onClick={handleSubmit}>
+                  <button className="glass-btn" style={{ background: '#22c55e', borderColor: '#22c55e' }} onClick={manualSubmit}>
                     Submit Exam
                   </button>
                 ) : (
