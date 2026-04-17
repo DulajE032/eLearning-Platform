@@ -4,6 +4,7 @@ import { PlayCircle, MessageCircle, Clock, BarChart2, CheckCircle, BookOpen, Sta
 import videoThumb from '../assets/video_thumbnail.png';
 // Add this near your other imports at the top
 import EleganteButton from '../components/EleganteButton';
+import Card from '../components/card.jsx'
 
 
 
@@ -12,21 +13,27 @@ import img2 from '../images/bac3.jpg';
 import img3 from '../images/download.jpg';
 import img4 from '../images/mac4.jpg';
 
+import iconBook from '../assets/icons/book.png';
+import iconOpenBook from '../assets/icons/open-book.png';
+import iconStackOfBooks from '../assets/icons/stack-of-books.png';
+
 import "./home.css"
+
+
 
 const images = [img1, img2, img3, img4];
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
-   const titleText = "අතීතයට යන මාර්ගගත ගමන";
+   const titleText = "අතීතයට යන මාර්ගගත  ගමන";
   const segmenter = new Intl.Segmenter('si-LK', { granularity: 'grapheme' });
   const titleLetters = Array.from(segmenter.segment(titleText)).map(s => s.segment);
  useEffect(() => {
     // Top background image interval
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
+    }, 30000);
 
 
     // Refresh the animation key every 30 seconds to restart the keyframe animation
@@ -46,6 +53,33 @@ const Home = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  const featuredCourses = [
+    {
+      id: 1,
+      title: "මානව ඉතිහාසය",
+      description: "Master complex historical concepts with our expert-led advanced placement course.",
+      actionText: "Explore Course",
+      iconSrc: iconStackOfBooks,
+      link: "/classes/history"
+    },
+    {
+      id: 2,
+      title: "සමාජ විධි",
+      description: "Discover the laws of society through interactive and practical social lessons.",
+      actionText: "Explore Course",
+      iconSrc: iconOpenBook,
+      link: "/classes/social"
+    },
+    {
+      id: 3,
+      title: "සිතියම් ලකුණු කිරිම නිවරදිව",
+      description: "Enhance your map marking skills and explore geography with precision.",
+      actionText: "Explore Course",
+      iconSrc: iconBook,
+      link: "/classes/maps"
+    }
+  ];
 
 
   return (
@@ -101,37 +135,21 @@ const Home = () => {
       </section>
 
       {/* Featured Courses Section */}
-      <section className="container section-padding">
+      <section id="courses" className="container section-padding">
         <h2 className="section-title">Featured Courses</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
-          
-          {[
-            { id: 1, title: 'Advanced Mathematics', grade: 'Grade 11', price: '$49.99', rating: 4.8 },
-            { id: 2, title: 'Physics Fundamentals', grade: 'Grade 10', price: '$39.99', rating: 4.9 },
-            { id: 3, title: 'Chemistry In-Depth', grade: 'Grade 11', price: '$59.00', rating: 4.7 }
-          ].map(course => (
-            <div key={course.id} className="glass-panel" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ height: '200px', backgroundImage: `url(${images[course.id % images.length]})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-              <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <h3 style={{ fontSize: '1.4rem', lineHeight: 1.3 }}>{course.title}</h3>
-                  <span style={{ background: 'var(--primary-color)', padding: '0.25rem 0.75rem', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold' }}>
-                    {course.grade}
-                  </span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: 0.8, marginBottom: '1.5rem' }}>
-                  <Star size={16} color="#fbbf24" fill="#fbbf24" /> {course.rating} / 5.0
-                </div>
-                <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{course.price}</span>
-                  <button className="glass-btn" style={{ background: 'var(--primary-color)', color: 'white', padding: '0.5rem 1.5rem' }}>
-                    Enroll Now
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
 
+        {/* 2. Map over the data and generate Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center items-stretch">
+          {featuredCourses.map((course) => (
+            <Card
+              key={course.id}
+              title={course.title}
+              description={course.description}
+              actionText={course.actionText}
+              iconSrc={course.iconSrc}
+              link={course.link}
+            />
+          ))}
         </div>
       </section>
 
@@ -197,7 +215,7 @@ const Home = () => {
         </div>
         
         <div style={{ textAlign: 'center' }}>
-          <Link to="/student">
+          <Link to="/quiz">
             <button className="glass-btn" style={{ fontSize: '1.2rem', padding: '1rem 3rem', background: 'var(--primary-color)', color: 'white' }}>
               Attempt Quiz
             </button>

@@ -1,9 +1,64 @@
-import { useState } from 'react';
-import { LayoutDashboard, FilePlus, Clock, Users, LogOut, BookOpen } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { LayoutDashboard, FilePlus, Clock, Users, LogOut, BookOpen, Trash2 } from 'lucide-react';
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  // Time Management State
+  const [timeLimit, setTimeLimit] = useState(10); // in minutes
+  const [saveTimeMessage, setSaveTimeMessage] = useState('');
+
+  // MCQ Management State
+  const [questions, setQuestions] = useState([]);
+  const [newQuestion, setNewQuestion] = useState('');
+  const [options, setOptions] = useState({ A: '', B: '', C: '', D: '' });
+  const [correctOption, setCorrectOption] = useState('');
+  const [saveMcqMessage, setSaveMcqMessage] = useState('');
+
+  useEffect(() => {
+    // Load config on mount
+    const savedTime = localStorage.getItem('quizTimeSeconds');
+    if (savedTime) setTimeLimit(parseInt(savedTime, 10) / 60);
+
+    const savedQuestions = localStorage.getItem('quizData');
+    if (savedQuestions) setQuestions(JSON.parse(savedQuestions));
+  }, []);
+
+  const handleSaveTime = () => {
+    localStorage.setItem('quizTimeSeconds', timeLimit * 60);
+    setSaveTimeMessage('Time limit updated successfully!');
+    setTimeout(() => setSaveTimeMessage(''), 3000);
+  };
+
+  const handleAddQuestion = () => {
+    if (!newQuestion || !options.A || !options.B || !options.C || !options.D || !correctOption) {
+      alert("Please fill all question fields and select a correct answer.");
+      return;
+    }
+    const qObj = {
+      id: Date.now(),
+      question: newQuestion,
+      options: [options.A, options.B, options.C, options.D],
+      answer: correctOption === 'A' ? options.A : correctOption === 'B' ? options.B : correctOption === 'C' ? options.C : options.D
+    };
+
+    setQuestions([...questions, qObj]);
+    // reset form
+    setNewQuestion('');
+    setOptions({ A: '', B: '', C: '', D: '' });
+    setCorrectOption('');
+  };
+
+  const handleDeleteQuestion = (id) => {
+    setQuestions(questions.filter(q => q.id !== id));
+  };
+
+  const handleSaveAllQuestions = () => {
+    localStorage.setItem('quizData', JSON.stringify(questions));
+    setSaveMcqMessage('Questions saved live successfully!');
+    setTimeout(() => setSaveMcqMessage(''), 3000);
+  };
 
   const sidebarItems = [
     { id: 'overview', label: 'Dashboard Overview', icon: <LayoutDashboard size={20} /> },
@@ -64,51 +119,69 @@ const AdminPanel = () => {
         return (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h2>Manage Papers & MCQs</h2>
+              <h2>Manage Papers & MCQs (Live Linked)</h2>
             </div>
             <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Add New MCQ Paper</h3>
-              <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '500px' }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '0.5rem' }}>Subject Grade</label>
-                  <select className="glass-input" style={{ background: 'var(--bg-color)' }}>
-                    <option>Grade 9</option>
-                    <option>Grade 10</option>
-                    <option>Grade 11</option>
-                  </select>
-                </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '0.5rem' }}>Paper Name</label>
-                  <input type="text" className="glass-input" placeholder="e.g. Physics Mid-Term 2026" />
-                </div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Add New Question to Main Quiz</h3>
 
-                <div style={{ padding: '1rem', border: '1px dashed var(--glass-border)', borderRadius: '8px' }}>
-                  <h4 style={{ marginBottom: '1rem' }}>Add Question Manually</h4>
+                <div style={{ padding: '1.5rem', border: '1px dashed var(--glass-border)', borderRadius: '8px', marginBottom: '2rem' }}>
+                  <h4 style={{ marginBottom: '1rem' }}>Draft Question</h4>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <textarea className="glass-input" placeholder="Enter question text here..." rows="3"></textarea>
-                    <input type="text" className="glass-input" placeholder="Option A" />
-                    <input type="text" className="glass-input" placeholder="Option B" />
-                    <input type="text" className="glass-input" placeholder="Option C" />
-                    <input type="text" className="glass-input" placeholder="Option D" />
-                    <select className="glass-input" style={{ background: 'var(--bg-color)' }}>
-                      <option>Select Correct Answer...</option>
-                      <option>Option A</option>
-                      <option>Option B</option>
-                      <option>Option C</option>
-                      <option>Option D</option>
+                    <textarea
+                      className="glass-input"
+                      placeholder="Enter question text here..."
+                      rows="3"
+                      value={newQuestion}
+                      onChange={(e) => setNewQuestion(e.target.value)}
+                    />
+                    <input type="text" className="glass-input" placeholder="Option A" value={options.A} onChange={(e) => setOptions({...options, A: e.target.value})} />
+                    <input type="text" className="glass-input" placeholder="Option B" value={options.B} onChange={(e) => setOptions({...options, B: e.target.value})} />
+                    <input type="text" className="glass-input" placeholder="Option C" value={options.C} onChange={(e) => setOptions({...options, C: e.target.value})} />
+                    <input type="text" className="glass-input" placeholder="Option D" value={options.D} onChange={(e) => setOptions({...options, D: e.target.value})} />
+                    <select
+                      className="glass-input"
+                      style={{ background: 'var(--bg-color)' }}
+                      value={correctOption}
+                      onChange={(e) => setCorrectOption(e.target.value)}
+                    >
+                      <option value="">Select Correct Answer...</option>
+                      <option value="A">Option A</option>
+                      <option value="B">Option B</option>
+                      <option value="C">Option C</option>
+                      <option value="D">Option D</option>
                     </select>
-                    <button type="button" className="glass-btn" style={{ width: 'fit-content' }}>+ Add Question</button>
+                    <button type="button" className="glass-btn" onClick={handleAddQuestion} style={{ width: 'fit-content' }}>+ Add Question to Pool</button>
                   </div>
                 </div>
 
-                <div style={{ textAlign: 'center', opacity: 0.6 }}>- OR -</div>
+                <div style={{ marginBottom: '2rem' }}>
+                  <h4 style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    Current Quiz Pool ({questions.length} Questions)
+                    <button className="glass-btn" onClick={handleSaveAllQuestions} style={{ background: 'var(--primary-color)', color: 'white', padding: '0.5rem 1rem' }}>
+                      Publish Changes Live
+                    </button>
+                  </h4>
+                  {saveMcqMessage && <p style={{ color: '#22c55e', marginBottom: '1rem' }}>{saveMcqMessage}</p>}
 
-                <div>
-                  <label style={{ display: 'block', marginBottom: '0.5rem' }}>Upload Questions Bulk (JSON/CSV)</label>
-                  <input type="file" className="glass-input" style={{ padding: '0.5rem' }} />
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {questions.map((q, idx) => (
+                      <div key={q.id} style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <div>
+                          <strong>Q{idx + 1}: {q.question}</strong>
+                          <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem', opacity: 0.8 }}>
+                            {q.options.map((opt, i) => (
+                              <li key={i} style={{ color: opt === q.answer ? '#22c55e' : 'inherit' }}>{opt}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        <button onClick={() => handleDeleteQuestion(q.id)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer' }}>
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                    ))}
+                    {questions.length === 0 && <p style={{ opacity: 0.5 }}>No questions added yet.</p>}
+                  </div>
                 </div>
-                <button type="button" className="glass-btn" style={{ background: 'var(--primary-color)', width: 'fit-content' }}>Save Paper</button>
-              </form>
             </div>
           </div>
         );
@@ -116,16 +189,24 @@ const AdminPanel = () => {
         return (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h2>Manage MCQ Timing</h2>
+              <h2>Manage Default MCQ Timer (Live)</h2>
             </div>
             <div className="glass-panel" style={{ padding: '2rem' }}>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Set Default Time Limits</h3>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Global Time Limit</h3>
               <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '400px' }}>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '0.5rem' }}>Time per Paper (Minutes)</label>
-                  <input type="number" className="glass-input" defaultValue={10} />
+                  <label style={{ display: 'block', marginBottom: '0.5rem' }}>Time Limit (Minutes)</label>
+                  <input
+                    type="number"
+                    className="glass-input"
+                    value={timeLimit}
+                    onChange={(e) => setTimeLimit(e.target.value)}
+                  />
                 </div>
-                <button type="button" className="glass-btn" style={{ background: '#22c55e', borderColor: '#22c55e', width: 'fit-content' }}>Update Time Limit</button>
+                <button type="button" onClick={handleSaveTime} className="glass-btn" style={{ background: '#22c55e', borderColor: '#22c55e', color: 'white', width: 'fit-content' }}>
+                  Publish Time Update
+                </button>
+                {saveTimeMessage && <p style={{ color: '#22c55e' }}>{saveTimeMessage}</p>}
               </form>
             </div>
           </div>

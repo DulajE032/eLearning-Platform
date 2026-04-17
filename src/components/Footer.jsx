@@ -61,6 +61,19 @@ const Footer = () => {
           </ul>
         </div>
 
+        {/* Technical Support Section */}
+        <div>
+          <h4 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Technical Support</h4>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', opacity: 0.8 }}>
+            <li>Need help with our platform?</li>
+            <li>System Status: 🟢 All Systems Operational</li>
+            <li style={{ marginTop: '0.5rem' }}>
+              <Link to="/contact" style={{ display: 'inline-block', padding: '0.25rem 0' }}>Report an Issue</Link>
+            </li>
+            <li>Call Support: +94 11 234 5678</li>
+          </ul>
+        </div>
+
       </div>
       <div style={{ textAlign: 'center', marginTop: '3rem', opacity: 0.6, fontSize: '0.9rem' }}>
         &copy; {new Date().getFullYear()} EduSpher. All Rights Reserved.
@@ -70,4 +83,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

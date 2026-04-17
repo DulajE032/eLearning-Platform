@@ -15,6 +15,19 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleClassesClick = (e) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+    navigate('/');
+    // Add small delay to ensure path matches / before scrolling
+    setTimeout(() => {
+      const section = document.getElementById('courses');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
     <nav className="nav-container" style={{
       position: 'fixed',
@@ -36,7 +49,7 @@ const Navbar = () => {
 
         <div className={`nav-links ${isMenuOpen ? 'mobile-nav-dropdown' : ''}`}>
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
-          <Link to="/" onClick={() => setIsMenuOpen(false)}>Classes</Link>
+          <a href="#courses" onClick={handleClassesClick}>Classes</a>
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Results</Link>
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Contact</Link>
           <Link to="/" onClick={() => setIsMenuOpen(false)}>About</Link>

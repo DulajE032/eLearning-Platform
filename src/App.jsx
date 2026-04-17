@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import StudentDashboard from './pages/StudentDashboard';
 import AdminPanel from './pages/AdminPanel';
+import Quiz from './pages/Quiz';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/student" element={<StudentDashboard />} />
             <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/quiz" element={<Quiz />} />
           </Routes>
         </main>
         <Footer />
