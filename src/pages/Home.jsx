@@ -9,9 +9,9 @@ import Card from '../components/card.jsx'
 
 
 import img1 from '../images/bac1.jpg';
-import img2 from '../images/bac3.jpg';
-import img3 from '../images/download.jpg';
-import img4 from '../images/mac4.jpg';
+import img2 from '../images/bac2.jpg';
+import img3 from '../images/bac3.jpg';
+import img4 from '../images/bac4.jpg';
 
 import iconBook from '../assets/icons/book.png';
 import iconOpenBook from '../assets/icons/open-book.png';

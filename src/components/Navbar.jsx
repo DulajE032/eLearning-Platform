@@ -29,13 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="nav-container" style={{
-      position: 'fixed',
-      top: 0,
-      width: '100%',
-      zIndex: 1000,
-      borderRadius: '50px',
-    }}>
+    <nav className="nav-container">
       <div className="glass-panel nav-glass-panel">
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
           <a href="/" onClick={handleLogoClick} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', fontWeight: 'bold', color: 'inherit', textDecoration: 'none' }}>
@@ -53,8 +47,8 @@ const Navbar = () => {
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Results</Link>
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Contact</Link>
           <Link to="/" onClick={() => setIsMenuOpen(false)}>About</Link>
-          <Link to="/login" className="glass-btn" style={{ padding: '0.5rem 1rem' }} onClick={() => setIsMenuOpen(false)}>Login</Link>
-          <Link to="/signup" className="glass-btn" style={{ padding: '0.5rem 1rem', background: 'var(--primary-color)', color: 'white' }} onClick={() => setIsMenuOpen(false)}>Sign Up</Link>
+          <Link to="/login" className="glass-btn"  onClick={() => setIsMenuOpen(false)}>Login</Link>
+          <Link to="/signup" className="glass-btn"  onClick={() => setIsMenuOpen(false)}>Sign Up</Link>
         </div>
       </div>
     </nav>

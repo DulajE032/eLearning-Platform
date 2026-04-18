@@ -1,73 +1,144 @@
+/* ===============================
+NAV CONTAINER (CENTERED FIXED)
+================================ */
 .nav-container {
-  padding: 0.5rem;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
+/* ===============================
+GLASS PANEL (MAIN NAV BOX)
+================================ */
 .nav-glass-panel {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
   gap: 1rem;
 }
 
+/* ===============================
+NAV LINKS (DEFAULT = MOBILE)
+================================ */
 .nav-links {
-  display: none; /* Hidden on mobile by default */
+display: none; /* hidden by default (mobile) */
+flex-direction: column;
+width: 100%;
+gap: 1rem;
+margin-top: 10px;
+}
+
+/* SHOW MENU WHEN ACTIVE */
+.mobile-nav-dropdown {
+display: flex;
+}
+
+/* NAV LINK STYLE */
+.nav-links a {
+text-decoration: none;
+color: var(--text-color);
+font-size: 0.95rem;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+position: relative;
+transition: all 0.3s ease;
+}
+
+/* ===============================
+HOVER EFFECT (UNDERLINE)
+================================ */
+.nav-links a::after {
+content: "";
+position: absolute;
+left: 0;
+bottom: -4px;
+width: 0;
+height: 2px;
+background: var(--primary-color);
+transition: width 0.3s ease;
+}
+
+/* Apply hover only to normal links (NOT buttons) */
+.nav-links a:not(.glass-btn):hover {
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.nav-links a:not(.glass-btn):hover::after {
+  width: 100%;
+}
+
+/* ===============================
+BUTTON STYLE (LOGIN / SIGNUP)
+================================ */
+.glass-btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 6px 14px;
+border-radius: 20px;
+white-space: nowrap;
+transition: all 0.3s ease;
+}
+
+.glass-btn:hover {
+background: var(--primary-color);
+color: white;
+transform: translateY(-2px);
+}
+
+/* ===============================
+MOBILE MENU BUTTON
+================================ */
+.mobile-menu-btn {
+display: block;
+background: none;
+border: none;
+cursor: pointer;
+color: var(--text-color);
+}
+
+/* ===============================
+DESKTOP VIEW (>=768px)
+================================ */
+@media (min-width: 768px) {
+
+.nav-glass-panel {
+flex-wrap: nowrap;
+}
+
+.nav-links {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: flex-end;
+gap: 1.5rem;
+width: auto;
+margin-top: 0;
 }
 
 .mobile-menu-btn {
-  display: block;
-  background: none;
-  border: none;
-  color: var(--text-color);
-  cursor: pointer;
+display: none;
+}
 }
 
-.mobile-nav-dropdown {
-  display: flex !important;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  padding-top: 1rem;
-  border-top: 1px solid var(--glass-border);
-  margin-top: 0.5rem;
-}
-
-.mobile-nav-dropdown a {
-  padding: 0.5rem 0;
-  display: block;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .nav-container {
-    padding: 0.5rem 2rem;
-  }
-
-  .nav-glass-panel {
-    padding: 0.5rem 1rem;
-    flex-wrap: nowrap;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    font-size: 1rem;
-  }
-
-  .mobile-menu-btn {
-    display: none;
-  }
-
-  .mobile-nav-dropdown {
-    display: flex !important;
-    flex-direction: row;
-    width: auto;
-    padding-top: 0;
-    border-top: none;
-    margin-top: 0;
-  }
+/* ===============================
+BODY FIX (PREVENT OVERLAP)
+================================ */
+body {
+  padding-top: 0;
+  margin: 0;
 }
