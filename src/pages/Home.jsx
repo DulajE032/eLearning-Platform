@@ -26,7 +26,7 @@ const images = [img1, img2, img3, img4];
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
-   const titleText = "අතීතයට යන මාර්ගගත  ගමන";
+   const titleText = "අතීතයට යන මාර්ගගත ගමන";
   const segmenter = new Intl.Segmenter('si-LK', { granularity: 'grapheme' });
   const titleLetters = Array.from(segmenter.segment(titleText)).map(s => s.segment);
  useEffect(() => {
@@ -98,7 +98,7 @@ const Home = () => {
         transition: 'background-image 1s ease-in-out'
       }}>
         {/* Overlay */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(15, 23, 42, 0.6)' }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(26, 26, 46, 0.75)' }} />
         
         <div className="container hero-panel" style={{ position: 'relative', textAlign: 'center', maxWidth: '800px', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
               <h1 className="hero-title" key={animationKey}>
@@ -269,7 +269,7 @@ const Home = () => {
       </section>
 
       <section className="payment-details container section-padding">
-        <h2 className="section-title">Banking Details</h2>
+        <h2 className="section-title" style={{ color: '#D4AF37' }}>Banking Details</h2>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems:"flex-end" }}>
           {[

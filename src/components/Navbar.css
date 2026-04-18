@@ -21,10 +21,10 @@ GLASS PANEL (MAIN NAV BOX)
   align-items: center;
   padding: 0.6rem 1.5rem;
   border-radius: 50px;
-  backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+ run dev  backdrop-filter: blur(16px);
+  background: rgba(25, 25, 45, 0.6); /* Deep sophisticated background */
+  border: 1px solid rgba(212, 175, 55, 0.3); /* Gold museum border */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow */
   flex-wrap: wrap;
   gap: 1rem;
 }
@@ -67,13 +67,13 @@ left: 0;
 bottom: -4px;
 width: 0;
 height: 2px;
-background: var(--primary-color);
+background: #D4AF37; /* Warm Gold */
 transition: width 0.3s ease;
 }
 
 /* Apply hover only to normal links (NOT buttons) */
 .nav-links a:not(.glass-btn):hover {
-  color: var(--primary-color);
+  color: #D4AF37; /* Warm Gold */
   transform: scale(1.05);
 }
 
@@ -90,13 +90,15 @@ align-items: center;
 justify-content: center;
 padding: 6px 14px;
 border-radius: 20px;
+color: #e0e0e0;
+border: 1px solid rgba(212, 175, 55, 0.5); /* Gold outline */
 white-space: nowrap;
 transition: all 0.3s ease;
 }
 
 .glass-btn:hover {
-background: var(--primary-color);
-color: white;
+background: #D4AF37; /* Warm Gold */
+color: #1a1a2e; /* Deep Blue text */
 transform: translateY(-2px);
 }
 

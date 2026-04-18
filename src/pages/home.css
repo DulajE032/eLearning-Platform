@@ -1,7 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&display=swap');
 
+/* ===============================
+GLOBAL VARIABLES
+================================ */
+:root {
+  --primary-color: #D4AF37; /* Warm Gold */
+  --bg-color: #1a1a2e; /* Deep Sophisticated Blue/Purple */
+  --text-color: #e0e0e0;
+  --panel-bg: rgba(25, 25, 45, 0.4); /* Museum-like dark transparent glass */
+}
 
-
+/* ===============================
+BASE STYLES
+================================ */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  background-image: linear-gradient(135deg, #1a1a2e 0%, #2a1b3d 100%); /* Deep purple/blue gradient */
+  color: var(--text-color);
+  overflow-x: hidden;
+  padding-top: 0; /* Ensures Hero goes to top */
+}
 
 .payment-details {
   padding-bottom: 6rem;
@@ -52,17 +73,21 @@
 
 /* Home Page Utilities */
 .hero-title {
-  font-size: 2rem;
+  font-family: 'Noto Sans Sinhala', 'Poppins', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
-  font-family: 'Noto Sans Sinhala', sans-serif;
+  color: #D4AF37; /* Warm Gold for Hero Title */
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
 }
 
 .hero-subtitle {
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  font-family: 'Noto Sans Sinhala', sans-serif;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
   opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  color: #f1f1f1;
 }
 
 .hero-panel {
@@ -168,3 +193,27 @@
     transform: translateY(0);
   }
 }
+
+/* ===============================
+PANELS & CARDS (GLASS EFFECT)
+================================ */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.2); /* Gold border for a museum feel */
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(212, 175, 55, 0.15); /* Soft gold shadow on hover */
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* ===============================
+TYPOGRAPHY
+================================ */
+
