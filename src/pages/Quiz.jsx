@@ -208,8 +208,8 @@ const Quiz = () => {
                 return (
                   <button
                     key={index}
-                    className="glass-btn"
-                    style={{...buttonStyle, width: '100%'}}
+                    className="quiz-option-btn"
+                    style={{...buttonStyle, width: '100%', borderRadius: '12px', cursor: isAnswered ? 'default' : 'pointer'}}
                     onClick={() => handleAnswerOptionClick(option)}
                     disabled={isAnswered}
                   >

@@ -13,7 +13,7 @@ import img2 from '../images/bac2.jpg';
 import img3 from '../images/bac3.jpg';
 import img4 from '../images/bac4.jpg';
 
-import iconBook from '../assets/icons/book.png';
+import iconBook from '../assets/vite.svg';
 import iconOpenBook from '../assets/icons/open-book.png';
 import iconStackOfBooks from '../assets/icons/stack-of-books.png';
 
@@ -233,7 +233,7 @@ const Home = () => {
               <MessageCircle size={48} color="#25D366" />
               <h3 style={{ fontSize: '1.5rem' }}>Grade {grade} Community</h3>
               <p style={{ opacity: 0.8 }}>Get instant updates, papers, and discuss with peers.</p>
-              <button className="glass-btn" style={{ width: '100%', borderColor: '#25D366', color: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+              <button className="whatsapp-btn" style={{ width: '100%', border: '1px solid #25D366', color: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                 <MessageCircle size={20} /> Join Group
               </button>
             </div>

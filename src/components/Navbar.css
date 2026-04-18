@@ -21,7 +21,7 @@ GLASS PANEL (MAIN NAV BOX)
   align-items: center;
   padding: 0.6rem 1.5rem;
   border-radius: 50px;
- run dev  backdrop-filter: blur(16px);
+ backdrop-filter: blur(16px);
   background: rgba(25, 25, 45, 0.6); /* Deep sophisticated background */
   border: 1px solid rgba(212, 175, 55, 0.3); /* Gold museum border */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow */
